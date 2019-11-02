@@ -23,14 +23,17 @@ def pivot(A: np.ndarray, ip: int, jp: int):
 
     assert isinstance(A, np.ndarray)
     assert len(A.shape) == 2
+
+    # Check if pivot element is 0
     if A[ip, jp] == 0:
         return
-    else:
-        A_new = np.array(A)
-        for i in range(0, A.shape[0]):
-            if i != ip:
-                A_new[i, :] = A[i, :] - A[ip, :] * (A[i, jp] / A[ip, jp])
-            else:
-                A_new[i, :] = A[i, :] / A[ip, jp]
 
-    return A_new
+    M = np.asfarray(A) # convert to float array
+    M_new = np.array(M)
+    for i in range(0, M.shape[0]):
+        if i != ip:
+            M_new[i, :] = M[i, :] - M[ip, :] * (M[i, jp] / M[ip, jp])
+        else:
+            M_new[i, :] = M[i, :] / M[ip, jp]
+
+    return M_new
